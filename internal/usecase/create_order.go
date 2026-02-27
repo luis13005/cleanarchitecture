@@ -2,7 +2,7 @@ package usecase
 
 import (
 	"github.com/luis13005/cleanarchitecture/internal/entity"
-	"github.com/luis13005/cleanarchitecture/internal/event"
+	"github.com/luis13005/cleanarchitecture/pkg/events"
 )
 
 type OrderInputDTO struct {
@@ -20,13 +20,13 @@ type OrderOutputDTO struct {
 
 type CreateOrderUseCase struct {
 	OrderRepository entity.OrderRepositoryInterface
-	OrderCreated    event.EventInterface
-	EventDispatcher event.EventDispatcherInterface
+	OrderCreated    events.EventInterface
+	EventDispatcher events.EventDispatcherInterface
 }
 
 func NewCreateOrderUseCase(orderRepository entity.OrderRepositoryInterface,
-	orderCreated event.EventInterface,
-	eventDispatcher event.EventDispatcherInterface) *CreateOrderUseCase {
+	orderCreated events.EventInterface,
+	eventDispatcher events.EventDispatcherInterface) *CreateOrderUseCase {
 	return &CreateOrderUseCase{OrderRepository: orderRepository,
 		OrderCreated:    orderCreated,
 		EventDispatcher: eventDispatcher}
@@ -54,7 +54,7 @@ func (c *CreateOrderUseCase) Execute(input OrderInputDTO) (OrderOutputDTO, error
 		FinalPrice: order.FinalPrice,
 	}
 
-	c.OrderCreated.Setpayload(dto)
+	c.OrderCreated.SetPayload(dto)
 	c.EventDispatcher.Dispatch(c.OrderCreated)
 
 	return dto, nil

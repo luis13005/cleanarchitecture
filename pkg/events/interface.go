@@ -1,4 +1,4 @@
-package event
+package events
 
 import (
 	"sync"
@@ -8,8 +8,8 @@ import (
 type EventInterface interface {
 	GetName() string
 	GetDateTime() time.Time
-	GetPayLoad() interface{}
-	Setpayload(payload interface{})
+	GetPayload() interface{}
+	SetPayload(payload interface{})
 }
 
 type EventHandlerInterface interface {

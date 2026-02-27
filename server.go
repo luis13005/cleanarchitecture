@@ -10,7 +10,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/lru"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/luis13005/cleanarchitecture/graph"
+	"github.com/luis13005/cleanarchitecture/internal/infra/graph"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 

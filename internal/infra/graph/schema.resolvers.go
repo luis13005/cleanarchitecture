@@ -7,26 +7,35 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/luis13005/cleanarchitecture/internal/infra/graph/model"
+	"github.com/luis13005/cleanarchitecture/internal/usecase"
 )
 
-// CreateTodo is the resolver for the createTodo field.
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
-}
+// CreateOrder is the resolver for the createOrder field.
+func (r *mutationResolver) CreateOrder(ctx context.Context, input *model.OrderInput) (*model.Order, error) {
+	dto := usecase.OrderInputDTO{
+		ID:    input.ID,
+		Price: input.Price,
+		Tax:   input.Tax,
+	}
 
-// Todos is the resolver for the todos field.
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
-	panic(fmt.Errorf("not implemented: Todos - todos"))
+	outputDTO, err := r.CreateOrderUseCase.Execute(dto)
+	if err != nil {
+		return nil, err
+	}
+
+	order := &model.Order{
+		ID:         outputDTO.ID,
+		Price:      outputDTO.Price,
+		Tax:        outputDTO.Tax,
+		FinalPrice: outputDTO.FinalPrice,
+	}
+
+	return order, nil
 }
 
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
-// Query returns QueryResolver implementation.
-func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
-
 type mutationResolver struct{ *Resolver }
-type queryResolver struct{ *Resolver }

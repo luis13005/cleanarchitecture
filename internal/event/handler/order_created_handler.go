@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"sync"
 
-	"github.com/luis13005/cleanarchitecture/internal/event"
+	"github.com/luis13005/cleanarchitecture/pkg/events"
 	"github.com/streadway/amqp"
 )
 
@@ -16,9 +16,9 @@ func NewOrderCreatedHandler(rabbitMQChannel *amqp.Channel) *OrderCreatedHandler 
 	return &OrderCreatedHandler{RabbitMQChannel: rabbitMQChannel}
 }
 
-func (h *OrderCreatedHandler) Handle(event event.EventInterface, wg *sync.WaitGroup) {
+func (h *OrderCreatedHandler) Handle(event events.EventInterface, wg *sync.WaitGroup) {
 	defer wg.Done()
-	jsonOutput, _ := json.Marshal(event.GetPayLoad())
+	jsonOutput, _ := json.Marshal(event.GetPayload())
 
 	msgRabbitmq := amqp.Publishing{
 		ContentType: "application/json",

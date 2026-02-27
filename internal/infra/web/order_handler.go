@@ -5,20 +5,20 @@ import (
 	"net/http"
 
 	"github.com/luis13005/cleanarchitecture/internal/entity"
-	"github.com/luis13005/cleanarchitecture/internal/event"
 	"github.com/luis13005/cleanarchitecture/internal/usecase"
+	"github.com/luis13005/cleanarchitecture/pkg/events"
 )
 
 type WebOrderHandler struct {
-	EventDispatcher   event.EventDispatcherInterface
+	EventDispatcher   events.EventDispatcherInterface
 	OrderRepository   entity.OrderRepositoryInterface
-	OrderCreatedEvent event.EventInterface
+	OrderCreatedEvent events.EventInterface
 }
 
 func NewWebOrderHandler(
-	eventDispatcher event.EventDispatcherInterface,
+	eventDispatcher events.EventDispatcherInterface,
 	orderRepository entity.OrderRepositoryInterface,
-	orderCreatedEvent event.EventInterface) *WebOrderHandler {
+	orderCreatedEvent events.EventInterface) *WebOrderHandler {
 	return &WebOrderHandler{
 		EventDispatcher:   eventDispatcher,
 		OrderRepository:   orderRepository,
