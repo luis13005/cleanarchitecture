@@ -1,0 +1,16 @@
+type Order{
+  ID         string
+	Price      float64
+	Tax        float64
+	FinalPrice float64
+}
+
+input NewOrder{
+  ID         string
+	Price      float64
+	Tax        float64
+}
+
+type Mutation{
+  createOrder(inpu: NewOrder): Order!
+}
