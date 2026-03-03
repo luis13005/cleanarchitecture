@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"sync"
 
 	"github.com/luis13005/cleanarchitecture/pkg/events"
@@ -17,6 +18,7 @@ func NewOrderCreatedHandler(rabbitMQChannel *amqp.Channel) *OrderCreatedHandler 
 }
 
 func (h *OrderCreatedHandler) Handle(event events.EventInterface, wg *sync.WaitGroup) {
+	fmt.Println("CHAMA HANDLE")
 	defer wg.Done()
 	jsonOutput, _ := json.Marshal(event.GetPayload())
 

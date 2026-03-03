@@ -35,7 +35,31 @@ func (r *mutationResolver) CreateOrder(ctx context.Context, input *model.OrderIn
 	return order, nil
 }
 
+// Orders is the resolver for the orders field.
+func (r *queryResolver) Orders(ctx context.Context) ([]*model.Order, error) {
+	ordersOut, err := r.CreateOrderUseCase.ListOrder()
+	if err != nil {
+		return nil, err
+	}
+
+	var ordersModel []*model.Order
+	for _, v := range ordersOut {
+		ordersModel = append(ordersModel, &model.Order{
+			ID:         v.ID,
+			Price:      v.Price,
+			Tax:        v.Tax,
+			FinalPrice: v.FinalPrice,
+		})
+	}
+
+	return ordersModel, nil
+}
+
 // Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
 
+// Query returns QueryResolver implementation.
+func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
+
 type mutationResolver struct{ *Resolver }
+type queryResolver struct{ *Resolver }
