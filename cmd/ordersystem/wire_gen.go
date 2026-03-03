@@ -8,7 +8,6 @@ package main
 
 import (
 	"database/sql"
-
 	"github.com/google/wire"
 	"github.com/luis13005/cleanarchitecture/internal/entity"
 	"github.com/luis13005/cleanarchitecture/internal/event"
@@ -16,7 +15,9 @@ import (
 	"github.com/luis13005/cleanarchitecture/internal/infra/web"
 	"github.com/luis13005/cleanarchitecture/internal/usecase"
 	"github.com/luis13005/cleanarchitecture/pkg/events"
+)
 
+import (
 	_ "github.com/lib/pq"
 )
 
@@ -29,11 +30,11 @@ func NewCreatedOrderUseCase(db *sql.DB, eventDispatcher events.EventDispatcherIn
 	return createOrderUseCase
 }
 
-func NewListedUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *usecase.ListOrderUseCase {
+func NewListOrderUseCase(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *usecase.ListOrderUseCase {
 	orderRepository := database.NewOrderRepository(db)
-	orderListed := event.NewOrderListed()
-	ListOrderUseCase := usecase.NewListOrderUseCase(orderRepository, orderListed, eventDispatcher)
-	return ListOrderUseCase
+	orderCreated := event.NewOrderCreated()
+	listOrderUseCase := usecase.NewListOrderUseCase(orderRepository, orderCreated, eventDispatcher)
+	return listOrderUseCase
 }
 
 func NewWebOrderHandler(db *sql.DB, eventDispatcher events.EventDispatcherInterface) *web.WebOrderHandler {

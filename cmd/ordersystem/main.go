@@ -41,7 +41,7 @@ func main() {
 	})
 
 	createOrderUseCase := NewCreatedOrderUseCase(db, eventDispatcher)
-	ListOrderUseCase := NewListedUseCase(db, eventDispatcher)
+	ListOrderUseCase := NewListOrderUseCase(db, eventDispatcher)
 
 	webserver := webserver.NewWebServer(configs.WebServerPort)
 	webOrderHandler := NewWebOrderHandler(db, eventDispatcher)
