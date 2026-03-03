@@ -9,4 +9,5 @@ import "github.com/luis13005/cleanarchitecture/internal/usecase"
 
 type Resolver struct {
 	CreateOrderUseCase usecase.CreateOrderUseCase
+	ListOrderUseCase   usecase.ListOrderUseCase
 }

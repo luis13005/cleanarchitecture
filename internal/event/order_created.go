@@ -13,6 +13,12 @@ func NewOrderCreated() *OrderCreated {
 	}
 }
 
+func NewOrderListed() *OrderCreated {
+	return &OrderCreated{
+		Name: "OrderListed",
+	}
+}
+
 func (e *OrderCreated) GetName() string {
 	return e.Name
 }

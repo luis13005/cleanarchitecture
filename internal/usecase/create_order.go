@@ -59,25 +59,3 @@ func (c *CreateOrderUseCase) Execute(input OrderInputDTO) (OrderOutputDTO, error
 
 	return dto, nil
 }
-
-func (useCase *CreateOrderUseCase) ListOrder() ([]OrderOutputDTO, error) {
-	orders, err := useCase.OrderRepository.List()
-	if err != nil {
-		return nil, err
-	}
-
-	var ordensDTO []OrderOutputDTO
-
-	for _, v := range orders {
-		var ordemDTO OrderOutputDTO
-
-		ordemDTO.ID = v.ID
-		ordemDTO.Price = v.Price
-		ordemDTO.Tax = v.Tax
-		ordemDTO.FinalPrice = v.FinalPrice
-
-		ordensDTO = append(ordensDTO, ordemDTO)
-	}
-
-	return ordensDTO, nil
-}

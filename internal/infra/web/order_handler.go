@@ -50,7 +50,7 @@ func (web *WebOrderHandler) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 func (web *WebOrderHandler) ListarOrdens(w http.ResponseWriter, r *http.Request) {
-	usecase := usecase.NewCreateOrderUseCase(web.OrderRepository, web.OrderCreatedEvent, web.EventDispatcher)
+	usecase := usecase.NewListOrderUseCase(web.OrderRepository, web.OrderCreatedEvent, web.EventDispatcher)
 	ordens, err := usecase.ListOrder()
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
