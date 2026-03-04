@@ -22,12 +22,12 @@ import (
 )
 
 func main() {
-	configs, err := configs.LoadConfig(".")
+	configs, err := configs.LoadConfig("cmd/ordersystem")
 	if err != nil {
 		panic(err)
 	}
 
-	db, err := sql.Open(configs.DBDriver, fmt.Sprintf("postgres://%s:%s@localhost:%s/%s?sslmode=disable", configs.DBUser, configs.DBPassword, configs.DBPort, configs.DBName))
+	db, err := sql.Open(configs.DBDriver, fmt.Sprintf("postgres://%s:%s@postgresql:%s/%s?sslmode=disable", configs.DBUser, configs.DBPassword, configs.DBPort, configs.DBName))
 	if err != nil {
 		panic(err)
 	}
@@ -74,7 +74,7 @@ func main() {
 }
 
 func getRabbitMQChannel() *amqp.Channel {
-	conn, err := amqp.Dial("amqp://admin:admin@localhost:5672/")
+	conn, err := amqp.Dial("amqp://admin:admin@rabbitmq:5672/")
 	if err != nil {
 		panic(err)
 	}

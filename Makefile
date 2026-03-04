@@ -6,3 +6,12 @@ evans:
 
 graph:
 	go run github.com/99designs/gqlgen generate
+
+migrate-up:
+	docker run --rm \
+	  --network cleanarchitecture_default \
+	  -v $(CURDIR)/sql/migrations:/migrations \
+	  migrate/migrate \
+	  -path=/migrations \
+	  -database "postgres://admin:admin@postgresql:5432/faculdade?sslmode=disable" \
+	  up

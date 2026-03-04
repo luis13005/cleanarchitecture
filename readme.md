@@ -353,3 +353,24 @@ require (
     github.com/lib/pq                           // Driver PostgreSQL
 )
 ```
+
+### Docker
+
+* Criar docker file
+* Colocar no docker-compose.yml (ex: build: .)
+* Ao subir o docker-compose up -d para acessar o goapp execute o 
+```bash cmd
+docker-compose exec goapp bash
+```
+* Para executar ambos (main.go e wire_gen.go) execute o comando no bash:
+```bash cmd
+go run ./cmd/ordersystem
+```
+
+comando para gerar arquivo binario tirando debug para diminuir o tamanho
+$env:GOOS="linux"; go build -ldflags="-w -s" -o server .
+no dockerfile deixar assim:
+RUN GOOS="linux" go build -ldflags="-w -s" -o server .
+
+e rodar o comando para executar o dockerfile:
+docker build -t luisfernando/deploy:latest -f Dockerfile.prod .
