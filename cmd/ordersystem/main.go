@@ -33,6 +33,10 @@ func main() {
 	}
 	defer db.Close()
 
+	if err = db.Ping(); err != nil {
+		panic(fmt.Sprintf("erro ao conectar no banco: %v", err))
+	}
+
 	rabbitMQChannel := getRabbitMQChannel()
 
 	eventDispatcher := events.NewEventDispatcher()

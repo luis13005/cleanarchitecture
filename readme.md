@@ -1,3 +1,8 @@
+# Para rodar o projeto execute somente
+```bash
+docker-compose up --build
+```
+
 # 🏆 Clean Architecture - Order System
 
 ![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
